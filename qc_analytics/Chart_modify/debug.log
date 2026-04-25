@@ -1,0 +1,38 @@
+2025-02-13 12:08:19 - SQL Query: SELECT 
+                q.name AS qc_name, 
+                c.Cluster_head_name AS cluster_head, 
+                pq.precision, 
+                pq.recall, 
+                pq.date 
+              FROM project_qc_status pq
+              JOIN cluster c ON pq.cluster_id = c.id
+              JOIN qc q ON pq.qc_id = q.id
+2025-02-13 12:08:21 - SQL Query: SELECT 
+                q.name AS qc_name, 
+                c.Cluster_head_name AS cluster_head, 
+                pq.precision, 
+                pq.recall, 
+                pq.date 
+              FROM project_qc_status pq
+              JOIN cluster c ON pq.cluster_id = c.id
+              JOIN qc q ON pq.qc_id = q.id WHERE YEAR(pq.date) = YEAR(CURDATE())
+2025-02-13 12:08:21 - No data available for filter: year
+2025-02-13 12:08:22 - SQL Query: SELECT 
+                q.name AS qc_name, 
+                c.Cluster_head_name AS cluster_head, 
+                pq.precision, 
+                pq.recall, 
+                pq.date 
+              FROM project_qc_status pq
+              JOIN cluster c ON pq.cluster_id = c.id
+              JOIN qc q ON pq.qc_id = q.id WHERE YEAR(pq.date) = YEAR(CURDATE()) AND MONTH(pq.date) = MONTH(CURDATE())
+2025-02-13 12:08:22 - No data available for filter: month
+2025-02-13 12:53:12 - SQL Query: SELECT 
+                q.name AS qc_name, 
+                c.Cluster_head_name AS cluster_head, 
+                pq.precision, 
+                pq.recall, 
+                pq.date 
+              FROM project_qc_status pq
+              JOIN cluster c ON pq.cluster_id = c.id
+              JOIN qc q ON pq.qc_id = q.id
