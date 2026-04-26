@@ -55,6 +55,20 @@ Built a QC Reporting & Insight Portal that transforms raw QC outputs into struct
 - Centralized tracking of QC performance across multiple projects  
 
 ---
+## 📸 Screenshots
+
+### 📊 Dashboard Overview
+![Dashboard](./screenshots/dashboard.png)
+
+---
+
+### 📁 Project-Level Statistics
+![Project Stats](./screenshots/project_level.png)
+
+---
+
+### 🔍 SKU-Level Insights & Patterns
+![SKU Stats](./screenshots/sku_level.png)
 
 ## 📈 Impact
 
@@ -72,7 +86,7 @@ QC Portal (Reporting & Insights Layer)
 - PHP  
 - JavaScript (AJAX)  
 - SQL  
-- LAMP Stack  
+{ LAMP Stack  }
 
 Transformation Layer  
 - Python  
