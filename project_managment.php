@@ -28,57 +28,6 @@ include('connection.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"></script>
 <script src="https://cdn.datatables.net/2.0.1/css/dataTables.bootstrap5.css"></script>
 
-                
-<?php 
-    
-    
-      if(isset($_POST['submission'])){
-          
-		    $project_id=$_POST['project_id']; 
-		    $project_name=$_POST['project_name']; 
-		    $status=$_POST['status']; 
-		    $cluster=$_POST['cluster']; 
-		    
-		    $sql_query="INSERT INTO `add_project`(`owner_name`, `project_name`,`cluster`, `date`, `time`, `status`) 
-		                                  VALUES ('$project_id','$project_name','$cluster','$date','$time','$status')";
-            
-            echo "&nbsp";
-             
-            $runn=mysqli_query($conn,$sql_query);
-            
-            if($runn == true){
-				?>
-                  <script>
-
-					var toastMixin = Swal.mixin({
-						toast: true,
-						icon: 'success',
-						title: 'General Title',
-						animation: false,
-						position: 'top-right',
-						showConfirmButton: false,
-						timer: 2000,
-						timerProgressBar: true,
-						didOpen: (toast) => {
-						toast.addEventListener('mouseenter', Swal.stopTimer)
-						toast.addEventListener('mouseleave', Swal.resumeTimer)
-						}
-					});
-
-					toastMixin.fire({
-						animation: true,
-						title: 'Added Project Successfully'
-					});
-                      
-					 setTimeout("window.open('project_managment.php', '_self');", 2000);
-				  </script>
-				<?php
-			}
-	  }
-	  
-	  
-?>
-
 <body>
 
 	<!-- Main navbar -->
@@ -113,7 +62,7 @@ include('connection.php');
                 </div>
 				<!-- /page header -->
 				
-				<form method="POST" action="project_managment.php">
+				<form method="POST" id="addProjectForm">
 				    
                 				<!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -433,6 +382,39 @@ include('connection.php');
 
 <script type="text/javascript">
     new DataTable('#example');
+
+    $("#addProjectForm").submit(function(e){
+    e.preventDefault();
+
+    $.ajax({
+        type: "POST",
+        url: "ajax/add_project.php",
+        data: $(this).serialize(),
+        success: function(response){
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Added Project Successfully',
+                toast: true,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 2000
+            });
+
+            $("#exampleModal").modal('hide');
+
+            setTimeout(() => {
+                location.reload();
+            }, 800);
+        },
+        error: function(){
+            Swal.fire({
+                icon: 'error',
+                title: 'Something went wrong'
+            });
+        }
+    });
+});
 </script>
 
 

@@ -32,19 +32,25 @@ if ($stmt = mysqli_prepare($conn, $query)) {
         $info_row['p_id_name'] = $first_row['p_id_name'];
         $info_row['p_name'] = $first_row['p_name'];
 
-        // Process first row
-        $qc_columns[$first_row['qc_id']] = $first_row['qc_name'];
+        $qc_columns = []; // initialize once here
+
+        $first_qc_key = $first_row['qc_id'] . '_' . date('Y-m-d', strtotime($first_row['submitted_date']));
+
+        // add column
+        $qc_columns[$first_qc_key] = $first_row['qc_name'] . ' / ' . date('Y-m-d', strtotime($first_row['submitted_date']));
+
+        // build row
         $key = $first_row['category_id'].'|'.$first_row['category_name'].'|'.$first_row['actual'].'|'.$first_row['predicted'];
+
         $table_data[$key] = [
             'category_id' => $first_row['category_id'],
             'category_name' => $first_row['category_name'],
             'actual' => $first_row['actual'],
             'predicted' => $first_row['predicted'],
-            'qcs' => [$first_row['qc_id'] => $first_row['category_ratio'].'<br>'.$first_row['refer_sheet_url']]
+            'qcs' => [
+                $first_qc_key => $first_row['category_ratio'].'<br>'.$first_row['refer_sheet_url']
+            ]
         ];
-
-        $qc_columns = []; // key = qc_id + submitted_date to make it unique
-
         while ($row = mysqli_fetch_assoc($result)) {
             $qc_key = $row['qc_id'] . '_' . date('Y-m-d', strtotime($row['submitted_date']));
             if (!isset($qc_columns[$qc_key])) {
